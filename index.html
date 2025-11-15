@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ekisa Joseph - Software Engineer</title>
+    <link rel="shortcut icon" href="/src/images/profile_img.jpg" type="image/x-icon">
     <link rel="stylesheet" href="/public/styles/index.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
@@ -77,94 +78,101 @@
     <!-- Main Content -->
     <main class="main-content">
         <!-- Hero Section -->
-<section id="home" class="section hero-section">
-    <div class="container">
-        <div class="hero-content">
-            <div class="hero-badge" id="typing-badge">
-                <span class="badge-text"></span>
-                <div class="pulse-dot"></div>
-            </div>
-            <h1 class="hero-title">
-                <span class="title-line">Ekisa Joseph</span>
-                <span class="title-gradient">Software Engineer</span>
-            </h1>
-            <p class="hero-description">
-                Building reliable digital systems for organizations, businesses, and startups. 
-                Specializing in mobile development, AI integrations, and socially impactful applications.
-            </p>
-            <div class="hero-actions">
-                <button class="btn btn-primary" onclick="scrollToSection('projects')">
-                    <span>View Projects</span>
-                    <i class="fas fa-arrow-down"></i>
-                </button>
-                <button class="btn btn-secondary" onclick="openTerminal()">
-                    <span>Open Terminal</span>
-                    <i class="fas fa-terminal"></i>
-                </button>
-            </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="stat-number" data-count="10">0</div>
-                    <div class="stat-label">Published Apps</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number" data-count="3">0</div>
-                    <div class="stat-label">Live Projects</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number" data-count="5">0</div>
-                    <div class="stat-label">Awards</div>
-                </div>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <!-- Profile Photo -->
-            <div class="profile-photo-container">
-                <div class="profile-photo">
-                    <img src="assets/profile-photo.jpg" alt="Ekisa Joseph" onerror="this.style.display='none'">
-                    <div class="photo-placeholder">
-                        <i class="fas fa-code"></i>
+        <section id="home" class="section hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge" id="typing-badge">
+                        <span class="badge-text"></span>
+                        <div class="pulse-dot"></div>
+                    </div>
+                    <h1 class="hero-title">
+                        <span class="title-line">Ekisa Joseph</span>
+                        <span class="title-gradient">Software Engineer</span>
+                    </h1>
+                    <p class="hero-description">
+                        Building reliable digital systems for organizations, businesses, and startups.
+                        Specializing in mobile development, AI integrations, and socially impactful applications.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="scrollToSection('projects')">
+                            <span>View Projects</span>
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                        <button class="btn btn-secondary" onclick="openTerminal()">
+                            <span>Open Terminal</span>
+                            <i class="fas fa-terminal"></i>
+                        </button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number" data-count="10">0</div>
+                            <div class="stat-label">Published Apps</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" data-count="3">0</div>
+                            <div class="stat-label">Live Projects</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" data-count="5">0</div>
+                            <div class="stat-label">Awards</div>
+                        </div>
                     </div>
                 </div>
-                <div class="photo-glow"></div>
-                <div class="photo-ring"></div>
-            </div>
+                <div class="hero-visual">
+                    <!-- Profile Photo -->
+                    <div class="profile-photo-container">
+                        <div class="profile-photo">
+                            <img src="/src/images/profile_img.jpg" alt="Ekisa Joseph"
+                                onerror="this.style.display='none'">
+                            <div class="photo-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </div>
+                        <div class="photo-glow"></div>
+                        <div class="photo-ring"></div>
+                    </div>
 
-            <!-- Floating Cards -->
-            <div class="floating-card card-1">
-                <i class="fab fa-android"></i>
-                <span>Android Dev</span>
-            </div>
-            <div class="floating-card card-2">
-                <i class="fas fa-robot"></i>
-                <span>AI Integration</span>
-            </div>
-            <div class="floating-card card-3">
-                <i class="fas fa-mobile-alt"></i>
-                <span>Mobile First</span>
-            </div>
-            
-            <!-- Code Window -->
-            <div class="code-window">
-                <div class="window-header">
-                    <div class="window-controls">
-                        <span class="control red"></span>
-                        <span class="control yellow"></span>
-                        <span class="control green"></span>
+                    <!-- Floating Cards -->
+                    <div class="floating-card card-1">
+                        <i class="fab fa-android"></i>
+                        <span>Android Dev</span>
                     </div>
-                    <span class="window-title">innovation.js</span>
-                </div>
-                <div class="code-content">
-                    <div class="code-line"><span class="code-comment">// Building solutions that matter</span></div>
-                    <div class="code-line"><span class="code-keyword">const</span> <span class="code-variable">passion</span> = <span class="code-string">"Social Impact"</span>;</div>
-                    <div class="code-line"><span class="code-keyword">while</span>(<span class="code-variable">problems</span>.<span class="code-function">exist</span>()) {</div>
-                    <div class="code-line">&nbsp;&nbsp;<span class="code-variable">develop</span>.<span class="code-function">creativeSolution</span>();</div>
-                    <div class="code-line">}</div>
+                    <div class="floating-card card-2">
+                        <i class="fas fa-robot"></i>
+                        <span>AI Integration</span>
+                    </div>
+                    <div class="floating-card card-3">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Mobile First</span>
+                    </div>
+
+                    <!-- Code Window -->
+                    <div class="code-window">
+                        <div class="window-header">
+                            <div class="window-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <span class="window-title">innovation.js</span>
+                        </div>
+                        <div class="code-content">
+                            <div class="code-line"><span class="code-comment">// Building solutions that matter</span>
+                            </div>
+                            <div class="code-line"><span class="code-keyword">const</span> <span
+                                    class="code-variable">passion</span> = <span class="code-string">"Social
+                                    Impact"</span>;</div>
+                            <div class="code-line"><span class="code-keyword">while</span>(<span
+                                    class="code-variable">problems</span>.<span class="code-function">exist</span>()) {
+                            </div>
+                            <div class="code-line">&nbsp;&nbsp;<span class="code-variable">develop</span>.<span
+                                    class="code-function">creativeSolution</span>();</div>
+                            <div class="code-line">}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
         <!-- Featured Projects Section -->
         <section id="projects" class="section projects-section">
             <div class="container">
@@ -203,7 +211,7 @@
                 </div>
             </div>
         </section>
-
+ 
         <!-- Architecture Section -->
         <section id="architecture" class="section architecture-section">
             <div class="container">
@@ -265,19 +273,29 @@
                 </div>
                 <div class="encouragement-content">
                     <div class="media-player">
-                        <div class="audio-player">
-                            <audio id="inspirationAudio" controls>
-                                <source src="assets/inspiration.mp3" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
-                            <div class="audio-controls">
-                                <button class="audio-btn play-pause">
+                        <div class="video-player">
+                            <div class="video-container">
+                                <iframe id="inspirationVideo"
+                                    src="https://www.youtube.com/embed/Tuw8hxrFBH8?enablejsapi=1&modestbranding=1&rel=0&showinfo=0"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen loading="lazy">
+                                </iframe>
+                            </div>
+                            <div class="video-controls">
+                                <button class="video-btn play-pause">
                                     <i class="fas fa-play"></i>
+                                </button>
+                                <button class="video-btn mute-btn">
+                                    <i class="fas fa-volume-up"></i>
                                 </button>
                                 <div class="progress-bar">
                                     <div class="progress"></div>
                                 </div>
-                                <div class="time">0:00</div>
+                                <div class="time">0:00 / 0:00</div>
+                                <button class="video-btn fullscreen-btn">
+                                    <i class="fas fa-expand"></i>
+                                </button>
                             </div>
                         </div>
                     </div>

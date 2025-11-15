@@ -317,3 +317,263 @@ function initializeBadgeRotation() {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { TypingEffect, BadgeTextRotator, initializeTypingEffects };
 }
+
+
+// YouTube Video Player Control
+class YouTubeVideoPlayer {
+    constructor() {
+        this.player = null;
+        this.isPlaying = false;
+        this.isMuted = false;
+        this.duration = 0;
+        this.currentTime = 0;
+        this.init();
+    }
+
+    init() {
+        // Load YouTube IFrame API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        window.onYouTubeIframeAPIReady = () => {
+            this.createPlayer();
+        };
+
+        this.setupEventListeners();
+    }
+
+    createPlayer() {
+        this.player = new YT.Player('inspirationVideo', {
+            events: {
+                'onReady': this.onPlayerReady.bind(this),
+                'onStateChange': this.onPlayerStateChange.bind(this),
+                'onError': this.onPlayerError.bind(this)
+            }
+        });
+    }
+
+    onPlayerReady(event) {
+        this.duration = this.player.getDuration();
+        this.updateDurationDisplay();
+        this.setupControlListeners();
+    }
+
+    onPlayerStateChange(event) {
+        switch (event.data) {
+            case YT.PlayerState.PLAYING:
+                this.isPlaying = true;
+                this.updatePlayPauseButton();
+                this.startProgressUpdate();
+                break;
+            case YT.PlayerState.PAUSED:
+                this.isPlaying = false;
+                this.updatePlayPauseButton();
+                break;
+            case YT.PlayerState.ENDED:
+                this.isPlaying = false;
+                this.updatePlayPauseButton();
+                break;
+        }
+    }
+
+    onPlayerError(event) {
+        console.error('YouTube Player Error:', event);
+        // Fallback to show an error message or alternative content
+        this.showErrorFallback();
+    }
+
+    setupControlListeners() {
+        const playPauseBtn = document.querySelector('.video-btn.play-pause');
+        const muteBtn = document.querySelector('.video-btn.mute-btn');
+        const progressBar = document.querySelector('.progress-bar');
+        const fullscreenBtn = document.querySelector('.fullscreen-btn');
+
+        if (playPauseBtn) {
+            playPauseBtn.addEventListener('click', () => this.togglePlayPause());
+        }
+
+        if (muteBtn) {
+            muteBtn.addEventListener('click', () => this.toggleMute());
+        }
+
+        if (progressBar) {
+            progressBar.addEventListener('click', (e) => this.seek(e));
+            progressBar.addEventListener('mousemove', (e) => this.showHoverTime(e));
+        }
+
+        if (fullscreenBtn) {
+            fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
+        }
+    }
+
+    togglePlayPause() {
+        if (this.player) {
+            if (this.isPlaying) {
+                this.player.pauseVideo();
+            } else {
+                this.player.playVideo();
+            }
+        }
+    }
+
+    toggleMute() {
+        if (this.player) {
+            if (this.isMuted) {
+                this.player.unMute();
+                this.isMuted = false;
+                document.querySelector('.mute-btn i').className = 'fas fa-volume-up';
+            } else {
+                this.player.mute();
+                this.isMuted = true;
+                document.querySelector('.mute-btn i').className = 'fas fa-volume-mute';
+            }
+        }
+    }
+
+    toggleFullscreen() {
+        const videoContainer = document.querySelector('.video-player');
+        if (!document.fullscreenElement) {
+            if (videoContainer.requestFullscreen) {
+                videoContainer.requestFullscreen();
+            } else if (videoContainer.webkitRequestFullscreen) {
+                videoContainer.webkitRequestFullscreen();
+            } else if (videoContainer.msRequestFullscreen) {
+                videoContainer.msRequestFullscreen();
+            }
+            document.querySelector('.fullscreen-btn i').className = 'fas fa-compress';
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            document.querySelector('.fullscreen-btn i').className = 'fas fa-expand';
+        }
+    }
+
+    seek(event) {
+        if (this.player && this.duration) {
+            const progressBar = event.currentTarget;
+            const clickPosition = (event.clientX - progressBar.getBoundingClientRect().left) / progressBar.offsetWidth;
+            const seekTime = this.duration * clickPosition;
+            this.player.seekTo(seekTime, true);
+        }
+    }
+
+    showHoverTime(event) {
+        // Optional: Show hover time on progress bar
+        // You can implement a tooltip showing the time at hover position
+    }
+
+    startProgressUpdate() {
+        this.progressInterval = setInterval(() => {
+            if (this.player && this.isPlaying) {
+                this.currentTime = this.player.getCurrentTime();
+                this.updateProgress();
+                this.updateTimeDisplay();
+            }
+        }, 1000);
+    }
+
+    stopProgressUpdate() {
+        if (this.progressInterval) {
+            clearInterval(this.progressInterval);
+        }
+    }
+
+    updateProgress() {
+        const progress = document.querySelector('.progress');
+        if (progress && this.duration > 0) {
+            const percentage = (this.currentTime / this.duration) * 100;
+            progress.style.width = `${percentage}%`;
+        }
+    }
+
+    updateTimeDisplay() {
+        const timeDisplay = document.querySelector('.time');
+        if (timeDisplay) {
+            const currentTimeFormatted = this.formatTime(this.currentTime);
+            const durationFormatted = this.formatTime(this.duration);
+            timeDisplay.textContent = `${currentTimeFormatted} / ${durationFormatted}`;
+        }
+    }
+
+    updateDurationDisplay() {
+        const timeDisplay = document.querySelector('.time');
+        if (timeDisplay && this.duration > 0) {
+            const durationFormatted = this.formatTime(this.duration);
+            timeDisplay.textContent = `0:00 / ${durationFormatted}`;
+        }
+    }
+
+    updatePlayPauseButton() {
+        const playPauseBtn = document.querySelector('.play-pause i');
+        if (playPauseBtn) {
+            playPauseBtn.className = this.isPlaying ? 'fas fa-pause' : 'fas fa-play';
+        }
+    }
+
+    formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    showErrorFallback() {
+        // Show a fallback message or alternative content
+        const videoContainer = document.querySelector('.video-container');
+        if (videoContainer) {
+            videoContainer.innerHTML = `
+                <div class="video-error" style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(30, 41, 59, 0.8);
+                    color: white;
+                    text-align: center;
+                    padding: 2rem;
+                    border-radius: 8px;
+                ">
+                    <div>
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h3>Video Unavailable</h3>
+                        <p>Please check your internet connection or try another video.</p>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    setupEventListeners() {
+        // Handle fullscreen change events
+        document.addEventListener('fullscreenchange', this.handleFullscreenChange.bind(this));
+        document.addEventListener('webkitfullscreenchange', this.handleFullscreenChange.bind(this));
+        document.addEventListener('mozfullscreenchange', this.handleFullscreenChange.bind(this));
+        document.addEventListener('MSFullscreenChange', this.handleFullscreenChange.bind(this));
+    }
+
+    handleFullscreenChange() {
+        const fullscreenBtn = document.querySelector('.fullscreen-btn i');
+        if (fullscreenBtn) {
+            if (document.fullscreenElement) {
+                fullscreenBtn.className = 'fas fa-compress';
+            } else {
+                fullscreenBtn.className = 'fas fa-expand';
+            }
+        }
+    }
+}
+
+// Initialize the video player when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    window.videoPlayer = new YouTubeVideoPlayer();
+});
