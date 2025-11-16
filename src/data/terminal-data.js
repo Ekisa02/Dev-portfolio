@@ -321,6 +321,9 @@ const terminalData = {
         "REST APIs",
         "Data Visualization",
       ],
+      projectLink:
+        "https://play.google.com/store/apps/details?id=com.Joseph.WEE_GEnder_Tracker&pcampaignid=web_share",
+      githubLink: "https://github.com/Ekisa02",
       status: "Live on Google Play",
       role: "Lead Developer & Architect",
       features: [
@@ -341,6 +344,9 @@ const terminalData = {
         "AI-powered mobile application for crop disease detection and farm management.",
       detailedDescription:
         "An innovative mobile application designed to empower smallholder farmers with AI-powered crop disease detection, farm-level data monitoring, and a built-in marketplace for agro-inputs. Promotes climate-smart farming and data-driven agricultural practices.",
+      projectLink:
+        "https://play.google.com/store/apps/details?id=com.Joseph.agroshieldapp&pcampaignid=web_share",
+      githubLink: "https://github.com/Ekisa02",
       technologies: [
         "AI/ML",
         "React Native",
@@ -369,6 +375,9 @@ const terminalData = {
         "Legal assistance and rights awareness platform for underserved communities.",
       detailedDescription:
         "A civic-tech mobile application providing legal assistance, rights awareness, and access to justice resources for underserved communities. Features include legal document templates, lawyer directory, and rights education modules.",
+      projectLink:
+        "https://play.google.com/store/apps/details?id=com.Joseph.justicenetapp&pcampaignid=web_share",
+      githubLink: "https://github.com/Ekisa02",
       technologies: [
         "Flutter",
         "Node.js",
@@ -431,7 +440,7 @@ const terminalData = {
         "Represented University of Eldoret at national competition showcasing mobile development skills and innovations.",
       icon: "trophy",
       certificateId: "WSK-2024-001",
-      certificateImage: "/src/images/profile_img.jpg",
+      certificateImage: "/public/files/certificates/world-skills-certificate.jpg",
     },
     {
       id: 2,
@@ -443,7 +452,7 @@ const terminalData = {
       icon: "medal",
       certificateId: "UIC-2023-002",
       certificateImage:
-        "assets/certificates/innovation-challenge-certificate.jpg",
+        "/public/files/uoe-competion.pdf",
     },
     {
       id: 3,
@@ -454,7 +463,7 @@ const terminalData = {
         "Presented mobile innovations and developments to academic and industry professionals.",
       icon: "microphone",
       certificateId: "MIP-2024-015",
-      certificateImage: "assets/certificates/presenter-certificate.jpg",
+      certificate: "assets/certificates/presenter-certificate.jpg",
     },
     {
       id: 4,
@@ -465,7 +474,7 @@ const terminalData = {
         "Certified in Intellectual Property rights and patent processes for tech innovations.",
       icon: "file-certificate",
       certificateId: "PWC-2023-008",
-      certificateImage: "assets/certificates/patent-workshop-certificate.jpg",
+      certificate: "assets/certificates/patent-workshop-certificate.jpg",
     },
     {
       id: 5,
@@ -476,7 +485,7 @@ const terminalData = {
         "Completed intensive mobile application development program with focus on social impact solutions.",
       icon: "graduation-cap",
       certificateId: "MAD-2023-012",
-      certificateImage: "assets/certificates/mobile-dev-certificate.jpg",
+      certificate: "assets/certificates/mobile-dev-certificate.jpg",
     },
   ],
 

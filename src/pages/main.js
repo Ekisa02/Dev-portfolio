@@ -166,11 +166,11 @@ class PortfolioApp {
             </div>
             <div class="project-links">
                 ${project.status.includes('Live') ? `
-                    <a href="#" class="project-link" target="_blank">
+                    <a href="${project.projectLink}" class="project-link" target="_blank">
                         <i class="fab fa-google-play"></i> Play Store
                     </a>
                 ` : ''}
-                <a href="#" class="project-link" target="_blank">
+                <a href="${project.githubLink}" class="project-link" target="_blank">
                     <i class="fab fa-github"></i> GitHub
                 </a>
             </div>
@@ -224,21 +224,168 @@ class PortfolioApp {
         });
     }
     
-    createAchievementCard(achievement) {
-        const card = document.createElement('div');
-        card.className = 'achievement-card fade-in hover-lift';
-        card.innerHTML = `
-            <div class="achievement-icon">
-                <i class="fas fa-trophy"></i>
-            </div>
-            <h3>${achievement.title}</h3>
-            <div class="achievement-date">${achievement.date}</div>
-            <div class="achievement-org">${achievement.organization}</div>
-            <p>${achievement.description}</p>
-        `;
-        return card;
-    }
+  
+
+
+// UPDATED: createAchievementCard (This adds the button)
+createAchievementCard(achievement) {
+    const card = document.createElement('div');
+    card.className = 'achievement-card fade-in hover-lift';
     
+    card.innerHTML = `
+        <div class="achievement-icon">
+            <i class="fas fa-${achievement.icon}"></i> 
+        </div>
+        <h3>${achievement.title}</h3>
+        <div class="achievement-date">${achievement.date}</div>
+        <div class="achievement-org">${achievement.organization}</div>
+        <p>${achievement.description}</p>
+        <button class="btn btn-view-cert">View Certificate</button>
+    `;
+
+    const viewBtn = card.querySelector('.btn-view-cert');
+    
+    // Add the click listener
+    // Using .bind(this) just in case 'this' is a problem
+    viewBtn.addEventListener('click', ((e) => {
+        e.stopPropagation(); 
+
+        const safeTitle = achievement.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        const extension = achievement.certificateImage.split('.').pop() || 'jpg';
+        const filename = `${safeTitle}_certificate.${extension}`;
+        
+        // This 'this' will be correct because of .bind()
+        this.showCertificateModal(achievement.certificateImage, achievement.title, filename);
+    }).bind(this)); // <-- .bind(this) is a safe way to make sure 'this' works
+    
+    return card;
+}
+
+// 
+// NEW & IMPROVED: showCertificateModal (Handles PDF/Image)
+//
+showCertificateModal(imgSrc, title, filename) {
+    // 1. Check if it's a PDF
+    const isPdf = imgSrc.toLowerCase().endsWith('.pdf');
+    
+    // 2. Create Modal structure
+    const modalOverlay = document.createElement('div');
+    modalOverlay.className = 'certificate-modal-overlay';
+    
+    // 3. Create modal body content based on file type
+    let modalBodyContent;
+    if (isPdf) {
+        // Use <iframe> for PDFs
+        modalBodyContent = `
+            <iframe src="${imgSrc}" class="certificate-iframe" 
+                    title="${title}" frameborder="0">
+            </iframe>
+        `;
+    } else {
+        // Use <img> for images
+        modalBodyContent = `
+            <img src="${imgSrc}" alt="${title} Certificate" class="certificate-image" />
+        `;
+    }
+
+    modalOverlay.innerHTML = `
+        <div class="certificate-modal ${isPdf ? 'pdf-modal' : ''}">
+            <div class="modal-header">
+                <h3>${title}</h3>
+                <button class="modal-close-btn" title="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                ${modalBodyContent}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-modal-download">
+                    <i class="fas fa-download"></i> Download
+                </button>
+                <button class="btn btn-modal-share">
+                    <i class="fas fa-share-alt"></i> Share
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // 4. Append to body and lock scroll
+    document.body.appendChild(modalOverlay);
+    document.body.style.overflow = 'hidden';
+
+    // 5. Add Event Listeners
+    
+    // Close function
+    const closeModal = () => {
+        modalOverlay.classList.add('closing'); 
+        modalOverlay.addEventListener('animationend', () => {
+            document.body.removeChild(modalOverlay);
+            document.body.style.overflow = 'auto'; 
+        });
+    };
+    
+    modalOverlay.querySelector('.modal-close-btn').addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) { 
+            closeModal();
+        }
+    });
+
+    // Download button
+    modalOverlay.querySelector('.btn-modal-download').addEventListener('click', () => {
+        const a = document.createElement('a');
+        a.href = imgSrc;
+        a.download = filename; 
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    });
+
+    // Share button
+    modalOverlay.querySelector('.btn-modal-share').addEventListener('click', () => {
+        // The handleShare function from my previous message will
+        // work for both PDFs and Images.
+        this.handleShare(imgSrc, title, filename);
+    });
+}
+
+// This function is the same as before. 
+// Make sure it's in your class/script.
+async handleShare(imgSrc, title, filename) {
+    const shareData = {
+        title: 'Certificate',
+        text: `Check out my certificate: ${title}`,
+        url: window.location.href 
+    };
+
+    if (navigator.share) {
+        try {
+            const response = await fetch(imgSrc);
+            const blob = await response.blob();
+            const file = new File([blob], filename, { type: blob.type });
+
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    files: [file],
+                    title: title,
+                    text: `Check out my certificate for ${title}.`
+                });
+            } else {
+                await navigator.share(shareData);
+            }
+        } catch (err) {
+            console.error("Share failed:", err);
+            try {
+                await navigator.share(shareData);
+            } catch (shareErr) {
+                console.error("Text share also failed:", shareErr);
+                alert("Could not share at this time.");
+            }
+        }
+    } else {
+        alert("Share feature is not supported on your browser.");
+    }
+}
+
     loadSkills() {
         const skillsContainer = document.getElementById('skillsContainer');
         if (!skillsContainer) return;
@@ -374,63 +521,109 @@ class PortfolioApp {
     }
     
     setupFormHandling() {
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.handleFormSubmit(contactForm);
-            });
-        }
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleFormSubmit(contactForm);
+        });
     }
     
-    handleFormSubmit(form) {
-        const formData = new FormData(form);
-        const data = {
-            name: formData.get('name'),
-            email: formData.get('email'),
-            message: formData.get('message')
-        };
-        
-        // Show loading state
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitBtn.disabled = true;
-        
-        // Simulate API call
-        setTimeout(() => {
-            console.log('Form submitted:', data);
-            this.showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
+    // Check for Formspree success/error parameters in URL
+    this.checkFormspreeStatus();
+}
+
+handleFormSubmit(form) {
+    const formData = new FormData(form);
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    const formStatus = document.getElementById('form-status');
+    
+    // Show loading state
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitBtn.disabled = true;
+    form.classList.add('submitting');
+    
+    // Send to Formspree
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            // Success - show success message
+            formStatus.textContent = 'Thank you! Your message has been sent successfully.';
+            formStatus.className = 'form-status success';
+            form.classList.add('success');
+            form.classList.remove('error');
             form.reset();
             
-            // Reset button
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
+            // Remove success message after 5 seconds
+            setTimeout(() => {
+                formStatus.style.display = 'none';
+                form.classList.remove('success');
+            }, 5000);
+        } else {
+            throw new Error('Form submission failed');
+        }
+    })
+    .catch(error => {
+        // Error - show error message
+        formStatus.textContent = 'There was an error sending your message. Please try again.';
+        formStatus.className = 'form-status error';
+        form.classList.add('error');
+        form.classList.remove('success');
+        
+        // Remove error message after 5 seconds
+        setTimeout(() => {
+            formStatus.style.display = 'none';
+            form.classList.remove('error');
+        }, 5000);
+        
+        console.error('Form submission error:', error);
+    })
+    .finally(() => {
+        // Reset button state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        form.classList.remove('submitting');
+        formStatus.style.display = 'block';
+    });
+}
+
+checkFormspreeStatus() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const formStatus = document.getElementById('form-status');
+    const contactForm = document.getElementById('contactForm');
+    
+    if (urlParams.get('success') === 'true') {
+        formStatus.textContent = 'Thank you! Your message has been sent successfully.';
+        formStatus.className = 'form-status success';
+        contactForm.classList.add('success');
+        contactForm.reset();
+        
+        // Remove success message after 5 seconds
+        setTimeout(() => {
+            formStatus.style.display = 'none';
+            contactForm.classList.remove('success');
+        }, 5000);
     }
     
-    showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.innerHTML = `
-            <div class="notification-content">
-                <i class="fas fa-${type === 'success' ? 'check' : 'info'}-circle"></i>
-                <span>${message}</span>
-            </div>
-        `;
+    if (urlParams.get('success') === 'false') {
+        formStatus.textContent = 'There was an error sending your message. Please try again.';
+        formStatus.className = 'form-status error';
+        contactForm.classList.add('error');
         
-        document.body.appendChild(notification);
-        
-        // Remove after 3 seconds
+        // Remove error message after 5 seconds
         setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.3s ease';
-            setTimeout(() => {
-                if (notification.parentElement) {
-                    notification.parentElement.removeChild(notification);
-                }
-            }, 300);
-        }, 3000);
+            formStatus.style.display = 'none';
+            contactForm.classList.remove('error');
+        }, 5000);
     }
+}
 }
 
 // Initialize the application when DOM is loaded

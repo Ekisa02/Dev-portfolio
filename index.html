@@ -208,10 +208,11 @@
                 </div>
                 <div class="achievements-grid" id="achievementsGrid">
                     <!-- Achievements loaded from JSON -->
+                    
                 </div>
             </div>
         </section>
- 
+
         <!-- Architecture Section -->
         <section id="architecture" class="section architecture-section">
             <div class="container">
@@ -336,7 +337,54 @@
                             </div>
                             <div>
                                 <h3>Email</h3>
-                                <p>ekisa.joseph@example.com</p>
+                                <a href="mailto:josephekisaopurongo@gmail.com">josephekisaopurongo@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h3>Phone (Primary)</h3>
+                                <a href="tel:+254741187375">+254 (741) 187-375</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div>
+                                <h3>Phone (Alternative)</h3>
+                                <a href="tel:+0987654321">+254 (704) 600-375</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-discord"></i>
+                            </div>
+                            <div>
+                                <h3>Discord</h3>
+                                <a href="https://discord.com/channels/@me" target="_blank">Ekisa_joseph</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div>
+                                <h3>LinkedIn</h3>
+                                <a href="https://www.linkedin.com/in/ekisa-joseph-232b7b2b3/"
+                                    target="_blank">linkedin.com/in/ekisajoseph</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-facebook"></i>
+                            </div>
+                            <div>
+                                <h3>Facebook</h3>
+                                <a href="https://www.facebook.com/profile.php?id=100084879503348"
+                                    target="_blank">facebook.com/Joseph Opurong`o</a>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -345,7 +393,9 @@
                             </div>
                             <div>
                                 <h3>Play Store</h3>
-                                <p>EkisaTech Developer</p>
+                                <a href="https://play.google.com/store/apps/dev?id=5099464761594773865"
+                                    target="_blank">EkisaTech
+                                    Developer</a>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -354,60 +404,76 @@
                             </div>
                             <div>
                                 <h3>GitHub</h3>
-                                <p>github.com/Ekisa02</p>
+                                <a href="https://github.com/Ekisa02" target="_blank">github.com/Ekisa02</a>
                             </div>
                         </div>
                     </div>
-                    <div class="contact-form">
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <input type="text" id="name" placeholder="Your Name" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" id="email" placeholder="Your Email" required>
-                            </div>
-                            <div class="form-group">
-                                <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <span>Send Message</span>
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </form>
+
+
+                  <!-- Formspree Contact Form -->
+            <div class="contact-form">
+                <form id="contactForm" action="https://formspree.io/f/xnnlbwya" method="POST">
+                    <div id="form-status" class="form-status"></div>
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
                     </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <!-- Honeypot field for spam protection -->
+                    <input type="text" name="_gotcha" style="display: none;">
+                    <button type="submit" class="btn btn-primary">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
                 </div>
             </div>
         </section>
-    </main>
 
-    <!-- Terminal Modal -->
-    <div class="terminal-modal" id="terminalModal">
-        <div class="terminal-container">
-            <div class="terminal-header">
-                <div class="terminal-title">
-                    <i class="fas fa-terminal"></i>
-                    <span>portfolio-terminal</span>
+        <!-- Terminal Modal -->
+        <div class="terminal-modal" id="terminalModal">
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-title">
+                        <i class="fas fa-terminal"></i>
+                        <span>portfolio-terminal</span>
+                    </div>
+                    <div class="terminal-controls">
+                        <button class="control-btn" onclick="minimizeTerminal()">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button class="control-btn" onclick="closeTerminal()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="terminal-controls">
-                    <button class="control-btn" onclick="minimizeTerminal()">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button class="control-btn" onclick="closeTerminal()">
-                        <i class="fas fa-times"></i>
-                    </button>
+                <div class="terminal-body" id="terminalBody">
+                    <!-- Terminal content loaded dynamically -->
                 </div>
-            </div>
-            <div class="terminal-body" id="terminalBody">
-                <!-- Terminal content loaded dynamically -->
             </div>
         </div>
-    </div>
 
-    <!-- Scripts -->
-    <script src="src/data/terminal-data.js"></script>
-    <script src="src/components/terminal.js"></script>
-    <script src="src/components/animations.js"></script>
-    <script src="src/pages/main.js"></script>
+
+        <!-- Floating WhatsApp section-->
+        <div class="whatsapp-float">
+            <a href="https://wa.me/254741187375?text=Hello%20Ekisa!%20I%20visited%20your%20website%20and%20would%20like%20to%20connect%20with%20you%20regarding%20your%20services."
+                target="_blank" class="whatsapp-link">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <div class="whatsapp-tooltip">Chat with me on WhatsApp!</div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="src/data/terminal-data.js"></script>
+        <script src="src/components/terminal.js"></script>
+        <script src="src/components/animations.js"></script>
+        <script src="src/pages/main.js"></script>
 </body>
 
 </html>
