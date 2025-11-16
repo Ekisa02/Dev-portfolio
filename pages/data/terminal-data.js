@@ -513,6 +513,25 @@ const terminalData = {
       "icon": "brain",
       "certificateId": null,
       "certificateImage": "docs/files/intro-to-ML.png"
+    },{
+      "id": 9,
+      "title": "Participant – Kenya AI Summit",
+      "organization": "Kenya AI Summit & Expo",
+      "date": "2025",
+      "description": "Participated in the Kenya AI Summit, engaging in workshops, networking sessions, and live demonstrations on the future of artificial intelligence, data science, and machine learning in Kenya.",
+      "icon": "cpu",
+      "certificateId": null,
+      "certificateImage": "docs/files/AIsummit.jpeg"
+    },
+    {
+      "id": 10,
+      "title": "Participant – EldoHub TechRun Hackathon (2nd Edition)",
+      "organization": "EldoHub / ICT Authority / Moi University",
+      "date": "2025",
+      "description": "Participated in the TechRun Hackathon where teams developed innovative solutions in AI, cybersecurity, agriculture, and digital transformation. Engaged in mentorship sessions and built a functional prototype presented during the final pitch.",
+      "icon": "code",
+      "certificateId": null,
+      "certificateImage": "docs/files/Techrun.jpeg"
     }
   ],
 

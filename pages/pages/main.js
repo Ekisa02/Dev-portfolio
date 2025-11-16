@@ -1,8 +1,20 @@
 // Enhanced main application with mobile menu and animations
 class PortfolioApp {
+
+
+
     constructor() {
         this.isMobileMenuOpen = false;
         this.currentQuoteIndex = 0;
+        //loaad more properties
+        this.allAchievements = [];
+        this.itemsPerLoad = 3;
+        this.currentItemsShown = 0;
+        this.achievementsGrid = null;
+        this.loadMoreButton = null;
+        this.scrollObserver = null;
+
+
         this.init();
     }
     
@@ -214,16 +226,115 @@ class PortfolioApp {
         return item;
     }
     
-    loadAchievements() {
-        const achievementsGrid = document.getElementById('achievementsGrid');
-        if (!achievementsGrid) return;
+
+ loadAchievements() {
+        // 1. Get the grid and store it (like your original function)
+        this.achievementsGrid = document.getElementById('achievementsGrid');
+        if (!this.achievementsGrid) return;
         
-        terminalData.achievements.forEach(achievement => {
-            const achievementCard = this.createAchievementCard(achievement);
-            achievementsGrid.appendChild(achievementCard);
-        });
+        // 2. Store all data
+        this.allAchievements = terminalData.achievements;
+        
+        // If there's nothing, stop
+        if (!this.allAchievements || this.allAchievements.length === 0) return;
+        
+        // 3. Clear any existing items
+        this.achievementsGrid.innerHTML = ''; 
+        
+        // 4. Find the controls container
+        const controlsContainer = document.getElementById('achievementsControls');
+        if (!controlsContainer) {
+            console.error('Error: achievementsControls container not found in HTML.');
+            return;
+        }
+        controlsContainer.innerHTML = ''; // Clear it
+
+        // 5. Create the button
+        this.loadMoreButton = document.createElement('button');
+        this.loadMoreButton.className = 'btn btn-load-more';
+        this.loadMoreButton.addEventListener('click', this.handleLoadClick.bind(this));
+        controlsContainer.appendChild(this.loadMoreButton);
+
+        // 6. Load the first batch
+        this.currentItemsShown = 0; // Reset
+        this.loadMoreItems(); 
     }
     
+
+    // 
+// --- ADD THESE 3 NEW FUNCTIONS ---
+// 
+
+/**
+ * Handles clicks on the "Load More" / "Show Less" button.
+ */
+handleLoadClick() {
+    // Check if we are currently showing all items
+    if (this.currentItemsShown >= this.allAchievements.length) {
+        // "Show Less" was clicked: Reset everything
+        this.achievementsGrid.innerHTML = '';
+        this.currentItemsShown = 0;
+        this.loadMoreItems();
+    } else {
+        // "Load More" was clicked: Load the next batch
+        this.loadMoreItems();
+    }
+}
+
+/**
+ * Loads the next batch of items (3 at a time).
+ */
+loadMoreItems() {
+        const newLimit = this.currentItemsShown + this.itemsPerLoad;
+        
+        // Get the next 3 achievements
+        const itemsToLoad = this.allAchievements.slice(this.currentItemsShown, newLimit);
+        
+        // Append them to the grid
+        itemsToLoad.forEach(achievement => {
+            // Your existing function creates the card
+            const achievementCard = this.createAchievementCard(achievement); 
+            this.achievementsGrid.appendChild(achievementCard);
+
+            // --- THIS IS THE FIX ---
+            // Tell the scroll observer to watch this new card
+            if (this.scrollObserver) {
+                this.scrollObserver.observe(achievementCard);
+            }
+            // --- END OF FIX ---
+        });
+    
+        // Update the count of items we're now showing
+        this.currentItemsShown = newLimit;
+    
+        // Update the button's text
+        this.updateButtonState();
+    }
+
+/**
+ * Updates the button's text and visibility.
+ */
+updateButtonState() {
+    // If there are 3 or fewer achievements in total, hide the button.
+    if (this.allAchievements.length <= this.itemsPerLoad) {
+        this.loadMoreButton.style.display = 'none';
+        return;
+    }
+
+    // If we've shown all items
+    if (this.currentItemsShown >= this.allAchievements.length) {
+        this.loadMoreButton.textContent = 'Show Less';
+    } else {
+        // If there are more items to show
+        this.loadMoreButton.textContent = 'Load More';
+    }
+    
+    this.loadMoreButton.style.display = 'block';
+}
+
+// 
+// --- END OF NEW FUNCTIONS ---
+//
   
 
 
@@ -499,15 +610,16 @@ async handleShare(imgSrc, title, filename) {
         this.setupScrollAnimations();
     }
     
-    setupScrollAnimations() {
+  setupScrollAnimations() {
         // Add intersection observer for all animated elements
         const animatedElements = document.querySelectorAll('.fade-in');
         
-        const observer = new IntersectionObserver((entries) => {
+        // 1. Create the observer and store it on the class
+        this.scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.animation = 'slideInUp 0.6s ease forwards';
-                    observer.unobserve(entry.target);
+                    this.scrollObserver.unobserve(entry.target); // <-- Use this.scrollObserver
                 }
             });
         }, {
@@ -515,8 +627,9 @@ async handleShare(imgSrc, title, filename) {
             rootMargin: '0px 0px -50px 0px'
         });
         
+        // 2. Observe all *existing* elements
         animatedElements.forEach(el => {
-            observer.observe(el);
+            this.scrollObserver.observe(el); // <-- Use this.scrollObserver
         });
     }
     

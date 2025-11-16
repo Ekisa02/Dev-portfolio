@@ -105,15 +105,15 @@
                     </div>
                     <div class="hero-stats">
                         <div class="stat">
-                            <div class="stat-number" data-count="10">0</div>
+                            <div class="stat-number" data-count="10+">0</div>
                             <div class="stat-label">Published Apps</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-number" data-count="3">0</div>
+                            <div class="stat-number" data-count="3+">0</div>
                             <div class="stat-label">Live Projects</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-number" data-count="5">0</div>
+                            <div class="stat-number" data-count="5+">0</div>
                             <div class="stat-label">Awards</div>
                         </div>
                     </div>
@@ -206,9 +206,13 @@
                     <h2 class="section-title">Achievements & Certifications</h2>
                     <p class="section-subtitle">Recognition of excellence and continuous learning</p>
                 </div>
-                <div class="achievements-grid" id="achievementsGrid">
+              <div class="achievements-grid" id="achievementsGrid">
+            </div>
+
+        <div class="achievements-controls" id="achievementsControls">
+            </div>
                     <!-- Achievements loaded from JSON -->
-                    
+
                 </div>
             </div>
         </section>
@@ -410,27 +414,28 @@
                     </div>
 
 
-                  <!-- Formspree Contact Form -->
-            <div class="contact-form">
-                <form id="contactForm" action="https://formspree.io/f/xnnlbwya" method="POST">
-                    <div id="form-status" class="form-status"></div>
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <!-- Formspree Contact Form -->
+                    <div class="contact-form">
+                        <form id="contactForm" action="https://formspree.io/f/xnnlbwya" method="POST">
+                            <div id="form-status" class="form-status"></div>
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" name="message" placeholder="Your Message" rows="5"
+                                    required></textarea>
+                            </div>
+                            <!-- Honeypot field for spam protection -->
+                            <input type="text" name="_gotcha" style="display: none;">
+                            <button type="submit" class="btn btn-primary">
+                                <span>Send Message</span>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                    </div>
-                    <!-- Honeypot field for spam protection -->
-                    <input type="text" name="_gotcha" style="display: none;">
-                    <button type="submit" class="btn btn-primary">
-                        <span>Send Message</span>
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
 
                 </div>
             </div>

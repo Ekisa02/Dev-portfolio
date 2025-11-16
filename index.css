@@ -1921,6 +1921,41 @@ body {
     margin-left: 0%;
 }
 }
+/* Container for the "Load More" button */
+.achievements-controls {
+    text-align: center; /* This correctly centers the button */
+    margin-top: 32px; 
+    /* 'align-self' is not needed here */
+}
+
+.btn-load-more {
+    background-color: rgba(0, 255, 200, 0.1);
+    border: 1px solid rgba(0, 255, 200, 0.5);
+    color: #00ffc8; 
+    padding: 12px 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative; 
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: none; 
+
+    /* --- USE ANIMATION INSTEAD OF SHADOW --- */
+    animation: pulse-glow 3s infinite ease-in-out;
+}
+
+.btn-load-more:hover {
+    background-color: rgba(0, 255, 200, 0.2);
+    
+    /* We can slightly boost the brightness on hover, 
+       but the animation is already doing most of the work */
+    box-shadow: 0 0 30px rgba(0, 255, 200, 0.6);
+    animation: none; 
+}
+
+
+
 /* ===== SKILLS SECTION ===== */
 .skills-container {
     display: grid;
