@@ -430,63 +430,90 @@ const terminalData = {
     },
   ],
 
-  achievements: [
+  "achievements": [
+
+
     {
-      id: 1,
-      title: "National World Skills Kenya Representative",
-      organization: "University of Eldoret",
-      date: "2024",
-      description:
-        "Represented University of Eldoret at national competition showcasing mobile development skills and innovations.",
-      icon: "trophy",
-      certificateId: "WSK-2024-001",
-      certificateImage: "/public/files/certificates/world-skills-certificate.jpg",
+      "id": 1,
+      "title": "Mobile App Development Program Completion",
+      "organization": "KNUTCOM/UNESCO",
+      "date": "2023",
+      "description": "Completed intensive mobile application development program with focus on social impact solutions.",
+      "icon": "graduation-cap",
+      "certificateId": "MAD-2023-012",
+      "certificateImage": "/docs/files/unesco.jpeg"
+    },
+     {
+      "id": 2,
+      "title": "3rd Place - Hult Prize On-Campus",
+      "organization": "Hult Prize - University of Eldoret",
+      "date": "February 26, 2025",
+      "description": "Achieved third-best position for the innovation 'MTICARBO' in the 2024-2025 Hult Prize On-Campus Program.",
+      "icon": "medal",
+      "certificateId": null,
+      "certificateImage": "docs/files/Hultprize.jpeg"
+    },
+
+    {
+      "id": 3,
+      "title": "Youth Innovative Technologies Training",
+      "organization": "Moi University, KNATCOM & UNESCO",
+      "date": "Jan 29 - Feb 16, 2024",
+      "description": "Participated in a three-week training competition on enhancing the capacity of youth on innovative technologies.",
+      "icon": "graduation-cap",
+      "certificateId": null,
+      "certificateImage": "docs/files/unesco.jpeg"
     },
     {
-      id: 2,
-      title: "2nd Place - University Innovation Challenge",
-      organization: "University of Eldoret",
-      date: "2023",
-      description:
-        "Awarded 2nd place for innovative mobile application solution addressing community needs.",
-      icon: "medal",
-      certificateId: "UIC-2023-002",
-      certificateImage:
-        "/pages/files/uoe-competion.pdf",
+      "id": 4,
+      "title": "Research to Commercialization Training",
+      "organization": "University of Eldoret",
+      "date": "October 14-15, 2024",
+      "description": "Participated in training focused on Design Thinking, Business Model Canvas, Intellectual Property Rights, and Pitching.",
+      "icon": "file-graduation-cap",
+      "certificateId": null,
+      "certificateImage": "docs/files/R&C.jpeg"
+    },
+     {
+      "id": 5,
+      "title": "National World Skills Kenya Representative",
+      "organization": "University of Eldoret",
+      "date": "2024",
+      "description": "Represented University of Eldoret at national competition showcasing mobile development skills and innovations.",
+      "icon": "trophy",
+      "certificateId": "WSK-2024-001",
+      "certificateImage": "docs/files/world-skills-certificate.jpg"
+    },
+     {
+      "id": 6,
+      "title": "Innovation Challenge Participant (Mticarbo)",
+      "organization": "University of Eldoret",
+      "date": "October 16-18, 2024",
+      "description": "Presented the 'Mticarbo' innovation in the 2nd Innovation Challenge on Digital Innovations for Social Sustainability during the 6th Annual Innovation Week.",
+      "icon": "graduation-cap",
+      "certificateId": null,
+      "certificateImage": "docs/files/2ndUOEchallenge.jpeg"
     },
     {
-      id: 3,
-      title: "Mobile Innovation Presenter",
-      organization: "Moi University (KNUTCOM + UNESCO)",
-      date: "2024",
-      description:
-        "Presented mobile innovations and developments to academic and industry professionals.",
-      icon: "microphone",
-      certificateId: "MIP-2024-015",
-      certificate: "pages/files/unesco-cert.pdf",
+      "id": 7,
+      "title": "Certificate of Completion - Python",
+      "organization": "Kaggle",
+      "date": "September 28, 2025",
+      "description": "Successfully completed the 'Python' course on Kaggle, covering core programming concepts.",
+      "icon": "laptop-code",
+      "certificateId": null,
+      "certificateImage": "docs/files/Python.png"
     },
     {
-      id: 4,
-      title: "Patent Workshop Certification",
-      organization: "University of Eldoret & KIPI",
-      date: "2023",
-      description:
-        "Certified in Intellectual Property rights and patent processes for tech innovations.",
-      icon: "file-certificate",
-      certificateId: "PWC-2023-008",
-      certificate: "pages/files/Cormazialization.pdf",
-    },
-    {
-      id: 5,
-      title: "Mobile App Development Program Completion",
-      organization: "KNUTCOM/UNESCO",
-      date: "2023",
-      description:
-        "Completed intensive mobile application development program with focus on social impact solutions.",
-      icon: "graduation-cap",
-      certificateId: "MAD-2023-012",
-      certificate: "assets/certificates/mobile-dev-certificate.jpg",
-    },
+      "id": 8,
+      "title": "Certificate of Completion - Intro to Machine Learning",
+      "organization": "Kaggle",
+      "date": "September 28, 2025",
+      "description": "Successfully completed the 'Intro to Machine Learning' course on Kaggle.",
+      "icon": "brain",
+      "certificateId": null,
+      "certificateImage": "docs/files/intro-to-ML.png"
+    }
   ],
 
   skills: {
