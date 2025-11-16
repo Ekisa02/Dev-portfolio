@@ -2,7 +2,7 @@
 
 A cutting-edge software engineering portfolio with dual interfaces: a clean Web View and an interactive Terminal View. This project is built to showcase your skills, projects, and experience through a responsive UI and a command-driven CLI—designed for performance, clarity, and a unique, developer-focused user experience.
 
-![Portfolio Screenshot](preview.png) <!-- Replace with an actual image if available -->
+![demo](preview.jpeg <!-- Replace with an actual image if available -->
 
 ## Features
 
