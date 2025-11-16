@@ -261,9 +261,6 @@ class PortfolioApp {
     }
     
 
-    // 
-// --- ADD THESE 3 NEW FUNCTIONS ---
-// 
 
 /**
  * Handles clicks on the "Load More" / "Show Less" button.
@@ -338,7 +335,7 @@ updateButtonState() {
   
 
 
-// UPDATED: createAchievementCard (This adds the button)
+//  createAchievementCard (This adds the button)
 createAchievementCard(achievement) {
     const card = document.createElement('div');
     card.className = 'achievement-card fade-in hover-lift';

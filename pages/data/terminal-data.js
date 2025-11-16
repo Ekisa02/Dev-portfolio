@@ -273,9 +273,13 @@ const terminalData = {
                 <div class="cmd-output">
                     <p style="color: var(--terminal-green); font-weight: bold;">Contact Information</p>
                     <div class="contact-info-terminal">
+                     <div class="contact-item-terminal">
+                            <div class="contact-icon-terminal"><i class="fas fa-phone"></i></div>
+                            <div>+254741187375</div>
+                        </div>
                         <div class="contact-item-terminal">
                             <div class="contact-icon-terminal"><i class="fas fa-envelope"></i></div>
-                            <div>ekisa.joseph@example.com</div>
+                            <div>josephekisaopurongo.com</div>
                         </div>
                         <div class="contact-item-terminal">
                             <div class="contact-icon-terminal"><i class="fab fa-google-play"></i></div>
