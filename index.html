@@ -105,19 +105,29 @@
                     </div>
                     <div class="hero-stats">
                         <div class="stat">
-                            <div class="stat-number" data-count="10+">0</div>
+                            <div class="stat-number" data-count="10">0</div>
                             <div class="stat-label">Published Apps</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-number" data-count="3+">0</div>
+                            <div class="stat-number" data-count="3">0</div>
                             <div class="stat-label">Live Projects</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-number" data-count="5+">0</div>
+                            <div class="stat-number" data-count="5">0</div>
                             <div class="stat-label">Awards</div>
                         </div>
                     </div>
+
+                    <!-- Certification Flipbook CTA - NEW -->
+                    <div class="hero-flipbook-cta">
+                        <button class="flipbook-trigger" onclick="toggleHeroFlipbook()">
+                            <i class="fas fa-book-open"></i>
+                            <span>View My Certification Journey</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
                 </div>
+
                 <div class="hero-visual">
                     <!-- Profile Photo -->
                     <div class="profile-photo-container">
@@ -172,6 +182,31 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Hidden Flipbook Container (appears when clicked) -->
+            <div class="hero-flipbook-container" id="heroFlipbook">
+                <div class="flipbook-overlay" onclick="closeHeroFlipbook()"></div>
+                <div class="flipbook-modal">
+                    <div class="flipbook-header">
+                        <h3><i class="fas fa-certificate"></i> My Certification Journey 2023-2025</h3>
+                        <button class="close-flipbook" onclick="closeHeroFlipbook()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="flipbook-wrapper">
+                        <iframe src="certification-flipbook.html" class="hero-flipbook-frame" frameborder="0"
+                            allowfullscreen loading="lazy" title="Ekisa Joseph - Certification Journey"></iframe>
+                    </div>
+                    <div class="flipbook-footer">
+                        <a href="certification-flipbook.html" target="_blank" class="btn btn-outline">
+                            <i class="fas fa-external-link-alt"></i> Open Full Screen
+                        </a>
+                        <button class="btn btn-outline" onclick="downloadFlipbook()">
+                            <i class="fas fa-download"></i> Download PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- Featured Projects Section -->
         <section id="projects" class="section projects-section">
@@ -206,14 +241,14 @@
                     <h2 class="section-title">Achievements & Certifications</h2>
                     <p class="section-subtitle">Recognition of excellence and continuous learning</p>
                 </div>
-              <div class="achievements-grid" id="achievementsGrid">
-            </div>
-
-        <div class="achievements-controls" id="achievementsControls">
-            </div>
-                    <!-- Achievements loaded from JSON -->
-
+                <div class="achievements-grid" id="achievementsGrid">
                 </div>
+
+                <div class="achievements-controls" id="achievementsControls">
+                </div>
+                <!-- Achievements loaded from JSON -->
+
+            </div>
             </div>
         </section>
 
@@ -474,13 +509,16 @@
             <div class="whatsapp-tooltip">Chat with me on WhatsApp!</div>
         </div>
 
+
+        
+
         <!-- Scripts -->
         <script src="pages/data/terminal-data.js"></script>
         <script src="pages/components/terminal.js"></script>
         <script src="pages/components/animations.js"></script>
         <script src="pages/pages/main.js"></script>
 
-         <script defer src="/_vercel/insights/script.js"></script>
+        <script defer src="/_vercel/insights/script.js"></script>
 
 </body>
 

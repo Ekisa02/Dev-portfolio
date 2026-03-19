@@ -1,4 +1,3 @@
-// Enhanced main application with mobile menu and animations
 class PortfolioApp {
 
 
@@ -228,20 +227,20 @@ class PortfolioApp {
     
 
  loadAchievements() {
-        // 1. Get the grid and store it (like your original function)
+  
         this.achievementsGrid = document.getElementById('achievementsGrid');
         if (!this.achievementsGrid) return;
         
-        // 2. Store all data
+       
         this.allAchievements = terminalData.achievements;
         
-        // If there's nothing, stop
+   
         if (!this.allAchievements || this.allAchievements.length === 0) return;
         
-        // 3. Clear any existing items
+     
         this.achievementsGrid.innerHTML = ''; 
         
-        // 4. Find the controls container
+    
         const controlsContainer = document.getElementById('achievementsControls');
         if (!controlsContainer) {
             console.error('Error: achievementsControls container not found in HTML.');
@@ -249,93 +248,75 @@ class PortfolioApp {
         }
         controlsContainer.innerHTML = ''; // Clear it
 
-        // 5. Create the button
+    
         this.loadMoreButton = document.createElement('button');
         this.loadMoreButton.className = 'btn btn-load-more';
         this.loadMoreButton.addEventListener('click', this.handleLoadClick.bind(this));
         controlsContainer.appendChild(this.loadMoreButton);
 
-        // 6. Load the first batch
         this.currentItemsShown = 0; // Reset
         this.loadMoreItems(); 
     }
     
 
 
-/**
- * Handles clicks on the "Load More" / "Show Less" button.
- */
+
 handleLoadClick() {
-    // Check if we are currently showing all items
+   
     if (this.currentItemsShown >= this.allAchievements.length) {
-        // "Show Less" was clicked: Reset everything
+       
         this.achievementsGrid.innerHTML = '';
         this.currentItemsShown = 0;
         this.loadMoreItems();
     } else {
-        // "Load More" was clicked: Load the next batch
+     
         this.loadMoreItems();
     }
 }
 
-/**
- * Loads the next batch of items (3 at a time).
- */
 loadMoreItems() {
         const newLimit = this.currentItemsShown + this.itemsPerLoad;
-        
-        // Get the next 3 achievements
+   
         const itemsToLoad = this.allAchievements.slice(this.currentItemsShown, newLimit);
         
-        // Append them to the grid
         itemsToLoad.forEach(achievement => {
-            // Your existing function creates the card
+         
             const achievementCard = this.createAchievementCard(achievement); 
             this.achievementsGrid.appendChild(achievementCard);
 
-            // --- THIS IS THE FIX ---
-            // Tell the scroll observer to watch this new card
+  
             if (this.scrollObserver) {
                 this.scrollObserver.observe(achievementCard);
             }
-            // --- END OF FIX ---
+          
         });
     
-        // Update the count of items we're now showing
+  
         this.currentItemsShown = newLimit;
     
-        // Update the button's text
         this.updateButtonState();
     }
 
-/**
- * Updates the button's text and visibility.
- */
+
 updateButtonState() {
-    // If there are 3 or fewer achievements in total, hide the button.
+   
     if (this.allAchievements.length <= this.itemsPerLoad) {
         this.loadMoreButton.style.display = 'none';
         return;
     }
 
-    // If we've shown all items
+
     if (this.currentItemsShown >= this.allAchievements.length) {
         this.loadMoreButton.textContent = 'Show Less';
     } else {
-        // If there are more items to show
+  
         this.loadMoreButton.textContent = 'Load More';
     }
     
     this.loadMoreButton.style.display = 'block';
 }
 
-// 
-// --- END OF NEW FUNCTIONS ---
-//
-  
 
-
-//  createAchievementCard (This adds the button)
 createAchievementCard(achievement) {
     const card = document.createElement('div');
     card.className = 'achievement-card fade-in hover-lift';
@@ -353,8 +334,7 @@ createAchievementCard(achievement) {
 
     const viewBtn = card.querySelector('.btn-view-cert');
     
-    // Add the click listener
-    // Using .bind(this) just in case 'this' is a problem
+   
     viewBtn.addEventListener('click', ((e) => {
         e.stopPropagation(); 
 
@@ -362,16 +342,13 @@ createAchievementCard(achievement) {
         const extension = achievement.certificateImage.split('.').pop() || 'jpg';
         const filename = `${safeTitle}_certificate.${extension}`;
         
-        // This 'this' will be correct because of .bind()
         this.showCertificateModal(achievement.certificateImage, achievement.title, filename);
-    }).bind(this)); // <-- .bind(this) is a safe way to make sure 'this' works
+    }).bind(this)); 
     
     return card;
 }
 
-// 
-// NEW & IMPROVED: showCertificateModal (Handles PDF/Image)
-//
+
 showCertificateModal(imgSrc, title, filename) {
     // 1. Check if it's a PDF
     const isPdf = imgSrc.toLowerCase().endsWith('.pdf');
@@ -380,17 +357,17 @@ showCertificateModal(imgSrc, title, filename) {
     const modalOverlay = document.createElement('div');
     modalOverlay.className = 'certificate-modal-overlay';
     
-    // 3. Create modal body content based on file type
+   
     let modalBodyContent;
     if (isPdf) {
-        // Use <iframe> for PDFs
+      
         modalBodyContent = `
             <iframe src="${imgSrc}" class="certificate-iframe" 
                     title="${title}" frameborder="0">
             </iframe>
         `;
     } else {
-        // Use <img> for images
+      
         modalBodyContent = `
             <img src="${imgSrc}" alt="${title} Certificate" class="certificate-image" />
         `;
@@ -420,7 +397,7 @@ showCertificateModal(imgSrc, title, filename) {
     document.body.appendChild(modalOverlay);
     document.body.style.overflow = 'hidden';
 
-    // 5. Add Event Listeners
+ 
     
     // Close function
     const closeModal = () => {
@@ -450,14 +427,12 @@ showCertificateModal(imgSrc, title, filename) {
 
     // Share button
     modalOverlay.querySelector('.btn-modal-share').addEventListener('click', () => {
-        // The handleShare function from my previous message will
-        // work for both PDFs and Images.
+   
         this.handleShare(imgSrc, title, filename);
     });
 }
 
-// This function is the same as before. 
-// Make sure it's in your class/script.
+
 async handleShare(imgSrc, title, filename) {
     const shareData = {
         title: 'Certificate',
@@ -616,7 +591,7 @@ async handleShare(imgSrc, title, filename) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.animation = 'slideInUp 0.6s ease forwards';
-                    this.scrollObserver.unobserve(entry.target); // <-- Use this.scrollObserver
+                    this.scrollObserver.unobserve(entry.target);
                 }
             });
         }, {
@@ -626,7 +601,7 @@ async handleShare(imgSrc, title, filename) {
         
         // 2. Observe all *existing* elements
         animatedElements.forEach(el => {
-            this.scrollObserver.observe(el); // <-- Use this.scrollObserver
+            this.scrollObserver.observe(el); 
         });
     }
     
@@ -639,7 +614,7 @@ async handleShare(imgSrc, title, filename) {
         });
     }
     
-    // Check for Formspree success/error parameters in URL
+    
     this.checkFormspreeStatus();
 }
 
@@ -745,10 +720,43 @@ document.addEventListener('DOMContentLoaded', () => {
 function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
     if (section) {
-        const offsetTop = section.offsetTop - 80; // Account for fixed header
+        const offsetTop = section.offsetTop - 80; 
         window.scrollTo({
             top: offsetTop,
             behavior: 'smooth'
         });
     }
 }
+
+// Toggle hero flipbook
+function toggleHeroFlipbook() {
+    const flipbook = document.getElementById('heroFlipbook');
+    flipbook.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
+
+// Close hero flipbook
+function closeHeroFlipbook() {
+    const flipbook = document.getElementById('heroFlipbook');
+    flipbook.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+}
+
+// Close with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const flipbook = document.getElementById('heroFlipbook');
+        if (flipbook.classList.contains('active')) {
+            closeHeroFlipbook();
+        }
+    }
+});
+
+// Download flipbook function
+function downloadFlipbook() {
+    // You can implement PDF download here
+    // For now, open in new tab
+    window.open('certification-flipbook.html', '_blank');
+}
+
+// Make sure your certification-flipbook.html is in the same directory

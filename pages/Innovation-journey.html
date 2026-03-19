@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekisa Joseph - My Innovation Journey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #2c3e50;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            padding: 20px;
+        }
+
+        .book-wrapper {
+            max-width: 1000px;
+            width: 100%;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.5);
+        }
+
+        /* Book styling */
+        .book {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background: #f5e9d8;
+            border-radius: 10px 20px 20px 10px;
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.3),
+                inset 0 0 0 2px #b88b4a,
+                inset 0 0 0 6px #d4b185;
+        }
+
+        /* Page container */
+        .pages {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #fffcf7;
+            border-radius: 8px 18px 18px 8px;
+            overflow: hidden;
+        }
+
+        /* Individual page */
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #fffcf7;
+            padding: 40px;
+            transition: transform 0.8s ease-in-out;
+            transform-origin: left center;
+            box-shadow: inset -4px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+        }
+
+        /* Current page stays visible */
+        .page.current {
+            transform: translateX(0);
+            z-index: 10;
+        }
+
+        /* Previous pages are flipped to the left */
+        .page.prev {
+            transform: rotateY(-20deg) translateX(-50px) scale(0.95);
+            opacity: 0.7;
+            z-index: 5;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Next pages are stacked on the right */
+        .page.next {
+            transform: translateX(100%);
+            z-index: 1;
+        }
+
+        /* Page content styling */
+        .page-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Cover styling */
+        .cover {
+            background: linear-gradient(135deg, #1e3c5f, #2a4a6e);
+            color: white;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cover h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .cover h2 {
+            font-size: 1.3em;
+            color: #ffd700;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #ffd700;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #3a6a9f;
+            overflow: hidden;
+        }
+
+        .profile-image i {
+            font-size: 4em;
+            color: #ffd700;
+        }
+
+        .welcome-message {
+            font-size: 1.2em;
+            padding: 15px 25px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            margin: 20px;
+            border: 1px solid #ffd700;
+        }
+
+        /* Certificate styling */
+        .certificate-badge {
+            background: #1e3c5f;
+            color: #ffd700;
+            padding: 5px 15px;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .certificate-title {
+            font-size: 1.8em;
+            color: #1e3c5f;
+            border-bottom: 2px solid #ffd700;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-family: 'Georgia', serif;
+        }
+
+        .certificate-image {
+            width: 100%;
+            height: 180px;
+            background: #f0f0f0;
+            border: 2px dashed #1e3c5f;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .certificate-image::before {
+            content: '📜';
+            font-size: 3em;
+            opacity: 0.3;
+        }
+
+        .certificate-image span {
+            background: rgba(255,255,255,0.9);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            position: absolute;
+        }
+
+        .highlight-box {
+            background: #f8f3e9;
+            border-left: 4px solid #1e3c5f;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .skill-tag {
+            background: #e9ecef;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 0 5px 5px 0;
+            font-size: 0.9em;
+            border: 1px solid #b88b4a;
+        }
+
+        /* At a glance styling */
+        .glance-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px dashed #b88b4a;
+        }
+
+        .glance-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1e3c5f;
+            min-width: 50px;
+        }
+
+        /* Back cover styling */
+        .back-cover {
+            background: linear-gradient(135deg, #1e3c5f, #2a4a6e);
+            color: white;
+            text-align: center;
+        }
+
+        .back-cover h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: white;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .qr-code i {
+            font-size: 3em;
+            color: #1e3c5f;
+        }
+
+        .contact-info {
+            text-align: left;
+            margin: 20px auto;
+            max-width: 300px;
+            line-height: 2;
+        }
+
+        .contact-info i {
+            color: #ffd700;
+            width: 25px;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 2px solid #1e3c5f;
+            color: #1e3c5f;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #1e3c5f;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-indicator {
+            background: #1e3c5f;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        /* Scrollbar */
+        .page::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .page::-webkit-scrollbar-track {
+            background: #f0e8dd;
+        }
+
+        .page::-webkit-scrollbar-thumb {
+            background: #b88b4a;
+            border-radius: 5px;
+        }
+
+        /* Vintage paper effect */
+        .page {
+            background-image: 
+                linear-gradient(rgba(200,180,150,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(200,180,150,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            color: #b88b4a;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="book-wrapper">
+        <div class="book">
+            <div class="pages" id="pagesContainer">
+                <!-- Page 1: Cover -->
+                <div class="page current" data-index="0">
+                    <div class="page-content cover">
+                        <div class="profile-image">
+                            <i class="fas fa-user-circle"></i>
+                            <!-- Replace with: <img src="your-photo.jpg" style="width:100%; height:100%; object-fit:cover;"> -->
+                        </div>
+                        <h1>EKISA JOSEPH OPURONGO</h1>
+                        <h2>Software Engineer & Social Impact Innovator</h2>
+                        <div class="welcome-message">
+                            <i class="fas fa-quote-left"></i> 
+                            My Innovation Journey Built In Code
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <div style="margin-top: 30px;">
+                            <i class="fas fa-certificate" style="color: #ffd700; margin: 0 10px;"></i>
+                            <i class="fas fa-trophy" style="color: #ffd700; margin: 0 10px;"></i>
+                            <i class="fas fa-code" style="color: #ffd700; margin: 0 10px;"></i>
+                        </div>
+                        <div style="margin-top: 40px; font-size: 0.9em;">2023 - 2025 · Volume 1</div>
+                        <div class="page-number">Cover</div>
+                    </div>
+                </div>
+
+                <!-- Page 2: At a Glance -->
+                <div class="page next" data-index="1">
+                    <div class="page-content">
+                        <span class="certificate-badge">📋 INSIDE THIS VOLUME</span>
+                        <h2 class="certificate-title">At a Glance</h2>
+                        
+                        <div class="glance-item">
+                            <div class="glance-number">01</div>
+                            <div><strong>Mobile App Development Program</strong><br>KNUTCOM/UNESCO (2023)</div>
+                        </div>
+                        
+                        <div class="glance-item">
+                            <div class="glance-number">02</div>
+                            <div><strong>Youth Innovative Technologies</strong><br>Moi University · UNESCO (2024)</div>
+                        </div>
+                        
+                        <div class="glance-item">
+                            <div class="glance-number">03</div>
+                            <div><strong>Hult Prize On-Campus</strong><br>3rd Place - 'MTICARBO' (2025)</div>
+                        </div>
+                        
+                        <div class="glance-item">
+                            <div class="glance-number">04</div>
+                            <div><strong>IBM Watsonx & Cloud</strong><br>Enterprise AI Implementation</div>
+                        </div>
+                        
+                        <div class="glance-item">
+                            <div class="glance-number">05</div>
+                            <div><strong>Google Play Publisher</strong><br>8+ Published Applications</div>
+                        </div>
+                        
+                        <div class="glance-item">
+                            <div class="glance-number">06</div>
+                            <div><strong>Academic Journey</strong><br>University of Eldoret</div>
+                        </div>
+                        <div class="page-number">1</div>
+                    </div>
+                </div>
+
+                <!-- Page 3: KNUTCOM/UNESCO Certificate -->
+                <div class="page next" data-index="2">
+                    <div class="page-content">
+                        <span class="certificate-badge">📜 CERTIFICATE OF COMPLETION</span>
+                        <h2 class="certificate-title">Mobile App Development</h2>
+                        <p style="color: #666;">KNUTCOM / UNESCO · 2023</p>
+                        
+                        <div class="certificate-image">
+                            <span>Certificate Image 1</span>
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>Program Highlights:</strong>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li>Android development training</li>
+                                <li>Social impact focus</li>
+                                <li>50+ participants trained</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <span class="skill-tag">Android SDK</span>
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">Firebase</span>
+                        </div>
+                        <div class="page-number">2</div>
+                    </div>
+                </div>
+
+                <!-- Page 4: Youth Technologies -->
+                <div class="page next" data-index="3">
+                    <div class="page-content">
+                        <span class="certificate-badge">📜 CERTIFICATE OF PARTICIPATION</span>
+                        <h2 class="certificate-title">Youth Innovative Technologies</h2>
+                        <p style="color: #666;">Moi University · UNESCO · 2024</p>
+                        
+                        <div class="certificate-image">
+                            <span>Certificate Image 2</span>
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>Program Details:</strong>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li>3-week intensive training</li>
+                                <li>Innovation challenges</li>
+                                <li>Project development</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <span class="skill-tag">Innovation</span>
+                            <span class="skill-tag">Problem Solving</span>
+                            <span class="skill-tag">Pitch Training</span>
+                        </div>
+                        <div class="page-number">3</div>
+                    </div>
+                </div>
+
+                <!-- Page 5: Hult Prize -->
+                <div class="page next" data-index="4">
+                    <div class="page-content">
+                        <span class="certificate-badge" style="background: #b88b4a;">🏆 AWARD</span>
+                        <h2 class="certificate-title">Hult Prize On-Campus</h2>
+                        <p style="color: #666;">3rd Place · February 2025</p>
+                        
+                        <div class="certificate-image">
+                            <span>Award Certificate</span>
+                        </div>
+                        
+                        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                            <strong>Innovation: MTICARBO</strong>
+                            <p style="margin-top: 5px;">Your innovation description here</p>
+                        </div>
+                        
+                        <div>
+                            <strong>Achievement:</strong>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li>Top 3 campus innovators</li>
+                                <li>Selected for MTICARBO</li>
+                            </ul>
+                        </div>
+                        <div class="page-number">4</div>
+                    </div>
+                </div>
+
+                <!-- Page 6: IBM Watsonx -->
+                <div class="page next" data-index="5">
+                    <div class="page-content">
+                        <span class="certificate-badge" style="background: #0070C0;">💻 IBM</span>
+                        <h2 class="certificate-title">IBM Watsonx & Cloud</h2>
+                        <p style="color: #666;">Enterprise AI Implementation</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0;">
+                            <div style="text-align: center; padding: 10px; background: #f0f7ff; border-radius: 8px;">
+                                <i class="fas fa-microchip" style="color: #0070C0;"></i>
+                                <p>watsonx</p>
+                            </div>
+                            <div style="text-align: center; padding: 10px; background: #f0f7ff; border-radius: 8px;">
+                                <i class="fas fa-brain" style="color: #0070C0;"></i>
+                                <p>AI Models</p>
+                            </div>
+                            <div style="text-align: center; padding: 10px; background: #f0f7ff; border-radius: 8px;">
+                                <i class="fas fa-cloud" style="color: #0070C0;"></i>
+                                <p>Cloud</p>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>Technologies:</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>IBM watsonx Orchestrate</li>
+                                <li>Foundation Models</li>
+                                <li>Cloud Object Storage</li>
+                            </ul>
+                        </div>
+                        
+                        <p><strong>Project:</strong> AutoExpenseFlow AI Agent</p>
+                        <div class="page-number">5</div>
+                    </div>
+                </div>
+
+                <!-- Page 7: Google Play -->
+                <div class="page next" data-index="6">
+                    <div class="page-content">
+                        <span class="certificate-badge" style="background: #34A853;">📱 GOOGLE PLAY</span>
+                        <h2 class="certificate-title">Android Publisher</h2>
+                        <p style="color: #666;">8+ Applications Published</p>
+                        
+                        <div class="certificate-image">
+                            <span>Play Console Screenshot</span>
+                        </div>
+                        
+                        <div style="margin: 20px 0;">
+                            <strong>Published Apps:</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>UOE Safe Campus App</li>
+                                <li>WEE Gender Tracker</li>
+                                <li>AgroShield360° App</li>
+                                <li>5+ more</li>
+                            </ul>
+                        </div>
+                        <div class="page-number">6</div>
+                    </div>
+                </div>
+
+                <!-- Page 8: Skills -->
+                <div class="page next" data-index="7">
+                    <div class="page-content">
+                        <span class="certificate-badge">📊 SKILLS</span>
+                        <h2 class="certificate-title">Technical Competencies</h2>
+                        
+                        <div style="margin: 20px 0;">
+                            <div>Android SDK <span style="float: right;">90%</span></div>
+                            <div style="height: 6px; background: #e0e0e0; margin: 5px 0 15px;">
+                                <div style="width: 90%; height: 100%; background: #1e3c5f;"></div>
+                            </div>
+                            
+                            <div>Java <span style="float: right;">95%</span></div>
+                            <div style="height: 6px; background: #e0e0e0; margin: 5px 0 15px;">
+                                <div style="width: 95%; height: 100%; background: #1e3c5f;"></div>
+                            </div>
+                            
+                            <div>React Native <span style="float: right;">85%</span></div>
+                            <div style="height: 6px; background: #e0e0e0; margin: 5px 0 15px;">
+                                <div style="width: 85%; height: 100%; background: #1e3c5f;"></div>
+                            </div>
+                            
+                            <div>TensorFlow <span style="float: right;">85%</span></div>
+                            <div style="height: 6px; background: #e0e0e0; margin: 5px 0 15px;">
+                                <div style="width: 85%; height: 100%; background: #1e3c5f;"></div>
+                            </div>
+                        </div>
+                        <div class="page-number">7</div>
+                    </div>
+                </div>
+
+                <!-- Page 9: Education -->
+                <div class="page next" data-index="8">
+                    <div class="page-content">
+                        <span class="certificate-badge">🎓 ACADEMIC</span>
+                        <h2 class="certificate-title">Education</h2>
+                        
+                        <div class="certificate-image">
+                            <span>University Certificate</span>
+                        </div>
+                        
+                        <div style="margin: 20px 0;">
+                            <p><strong>University of Eldoret</strong></p>
+                            <p>Software Engineering</p>
+                            <p>Current Student</p>
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>Coursework:</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>Software Engineering</li>
+                                <li>Mobile Development</li>
+                                <li>Database Systems</li>
+                            </ul>
+                        </div>
+                        <div class="page-number">8</div>
+                    </div>
+                </div>
+
+                <!-- Page 10: Future Goals -->
+                <div class="page next" data-index="9">
+                    <div class="page-content">
+                        <span class="certificate-badge">🚀 FUTURE</span>
+                        <h2 class="certificate-title">Currently Pursuing</h2>
+                        
+                        <div style="background: #f8f3e9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                            <strong>Target Certifications:</strong>
+                            <ul style="margin-top: 15px;">
+                                <li style="margin: 10px 0;">☐ Google Associate Android Developer</li>
+                                <li style="margin: 10px 0;">☐ AWS Developer Associate</li>
+                                <li style="margin: 10px 0;">☐ TensorFlow Developer</li>
+                                <li style="margin: 10px 0;">☐ IBM AI Engineering</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="font-style: italic; color: #666;">
+                            "The only way to do great work is to love what you keep learning."
+                        </div>
+                        <div class="page-number">9</div>
+                    </div>
+                </div>
+
+                <!-- Page 11: Back Cover -->
+                <div class="page next" data-index="10">
+                    <div class="page-content back-cover">
+                        <h2>Certificate Verification</h2>
+                        
+                        <p style="margin-bottom: 30px; line-height: 1.8;">
+                            All certificates and achievements documented in this<br>
+                            bulletin are authentic and verifiable upon request.
+                        </p>
+                        
+                        <div class="qr-code">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <p style="margin-bottom: 30px;">Scan to view online portfolio</p>
+                        
+                        <div style="border-top: 2px solid #ffd700; padding-top: 20px;">
+                            <h3 style="color: #ffd700; margin-bottom: 15px;">Connect With Me</h3>
+                            <div class="contact-info">
+                                <p><i class="fas fa-envelope"></i> ekisa.joseph@email.com</p>
+                                <p><i class="fab fa-linkedin"></i> linkedin.com/in/ekisa-joseph</p>
+                                <p><i class="fab fa-github"></i> github.com/ekisa-joseph</p>
+                                <p><i class="fas fa-globe"></i> ekisa-joseph.vercel.app</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px; font-size: 0.8em; opacity: 0.7;">
+                            Ekisa Joseph Opurongo © 2025 | Volume 1, Issue 1
+                        </div>
+                        <div class="page-number" style="color: #ffd700;">Back Cover</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" disabled>
+                <i class="fas fa-chevron-left"></i> Previous
+            </button>
+            <span class="page-indicator" id="pageIndicator">Page 1 of 11</span>
+            <button class="nav-btn" id="nextBtn">
+                Next <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Get all pages
+        const pages = Array.from(document.querySelectorAll('.page'));
+        const totalPages = pages.length;
+        let currentIndex = 0;
+        
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageIndicator = document.getElementById('pageIndicator');
+
+        function updatePages() {
+            // Update classes for each page
+            pages.forEach((page, index) => {
+                page.classList.remove('current', 'prev', 'next');
+                
+                if (index === currentIndex) {
+                    page.classList.add('current');
+                } else if (index < currentIndex) {
+                    page.classList.add('prev');
+                } else {
+                    page.classList.add('next');
+                }
+            });
+            
+            // Update navigation
+            pageIndicator.textContent = `Page ${currentIndex + 1} of ${totalPages}`;
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === totalPages - 1;
+        }
+
+        // Next page
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalPages - 1) {
+                currentIndex++;
+                updatePages();
+            }
+        });
+
+        // Previous page
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updatePages();
+            }
+        });
+
+        // Click on page to turn
+        pages.forEach((page, index) => {
+            page.addEventListener('click', () => {
+                if (index === currentIndex && currentIndex < totalPages - 1) {
+                    currentIndex++;
+                    updatePages();
+                }
+            });
+        });
+
+        // Initialize
+        updatePages();
+    </script>
+</body>
+</html>
