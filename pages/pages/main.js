@@ -756,7 +756,7 @@ document.addEventListener('keydown', function(e) {
 function downloadFlipbook() {
     // You can implement PDF download here
     // For now, open in new tab
-    window.open('certification-flipbook.html', '_blank');
+    window.open('pages/Innovation-journey.html', '_blank');
 }
 
 // Make sure your certification-flipbook.html is in the same directory
