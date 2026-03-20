@@ -696,6 +696,35 @@ const terminalData = {
   certificateId: null,
   certificateImage: "docs/files/IBM-hackathon.png",
 },
+{
+  "id": 13,
+  "title": "7th University of Eldoret Innovation Week – Pitching & Exhibition",
+  "organization": "University of Eldoret",
+  "date": "4th-6th,February ,2026",
+  "description": "In 2026, I had the opportunity to attend the University of Eldoret Innovation Week and Competition. I pitched AgroShield 360 at the event, which also featured an exhibition. I connected with Nicholus, founder of Garage Startup Kenya and ClickHouse, and Bob, an entrepreneur in Nairobi. A big thank you to Caroli Ikiling, Marion Jebet, University of Eldoret, and University of Nairobi for the support.",
+  "icon": "trophy",
+  "certificateId": null,
+certificateImage: "docs/files/7th-uoe-challange.jpeg",
+},
+{
+  "id": 14,
+  "title": "HultPrize UoE Competition – AgroShield 360",
+  "organization": "University of Eldoret",
+  "date": "25th,February,2026",
+  "description": "I had the opportunity to visit the University of Eldoret and participate in the HultPrize UoE competition. I pitched AgroShield 360 and secured 5th position. I also connected with Nicholus, founder of Garage Startup Kenya and ClickHouse, and Bob, an entrepreneur in Nairobi. A big thank you to Caroli Ikiling, Marion Jebet, University of Eldoret, and University of Nairobi for the support.",
+  "icon": "trophy",
+  "certificateId": null,
+  certificateImage: "docs/files/Uoe-hultprize.jpeg",
+},{
+  "id": 15,
+  "title": "HultPrize UoN Competition – AgroShield 360",
+  "organization": "University of Nairobi",
+  "date": "27th,February,2026",
+  "description": "I had the opportunity to visit the University of Nairobi and participate in the HultPrize UoN competition. I pitched AgroShield 360 and secured 3rd position. I also connected with Nicholus, founder of Garage Startup Kenya and ClickHouse, and Bob, an entrepreneur in Nairobi. A big thank you to Caroli Ikiling, Marion Jebet, University of Eldoret, and University of Nairobi for the support.",
+  "icon": "trophy",
+  "certificateId": null,
+  certificateImage: "docs/files/UON-hultprize.jpeg",
+}
   ],
 
   skills: {
