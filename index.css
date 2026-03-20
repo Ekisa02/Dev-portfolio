@@ -1770,7 +1770,132 @@ body {
         font-size: 1.1rem;
     }
 }
+/* Year Filter Container - New Styles Only */
+.year-filter-container {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
 
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-title {
+    font-size: 1.1rem;
+    color: #1e3c5f;
+    margin: 0;
+    font-weight: 600;
+}
+
+.filter-stats {
+    background: #f0f7ff;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #1e3c5f;
+}
+
+.filter-stats span {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #1e3c5f;
+}
+
+/* Year Filter Buttons */
+.year-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 2px solid #1e3c5f;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #1e3c5f;
+    font-family: 'Inter', sans-serif;
+}
+
+.filter-btn:hover {
+    background: #1e3c5f;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: #1e3c5f;
+    color: white;
+    box-shadow: 0 5px 15px rgba(30,60,95,0.3);
+}
+
+/* Year Badge - Small addition to your existing cards */
+.year-badge {
+    background: #f0f7ff;
+    color: #1e3c5f;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: monospace;
+    display: inline-block;
+}
+
+/* No Results Message */
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 16px;
+    grid-column: 1 / -1;
+}
+
+.no-results i {
+    font-size: 3em;
+    color: #b88b4a;
+    margin-bottom: 15px;
+}
+
+.no-results h3 {
+    color: #1e3c5f;
+    margin-bottom: 10px;
+}
+
+/* Mobile Responsive for Filter */
+@media (max-width: 768px) {
+    .filter-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .year-filter {
+        justify-content: center;
+    }
+    
+    .filter-btn {
+        padding: 6px 14px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-btn {
+        padding: 5px 12px;
+        font-size: 0.7rem;
+    }
+}
 
 /* ===== ARCHITECTURE SECTION ===== */
 .architecture-section {
