@@ -413,7 +413,7 @@ class PortfolioApp {
         <div class="achievement-content">
             <div class="achievement-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                 <h3 style="margin: 0;">${achievement.title}</h3>
-                <span class="year-badge">${year}</span>
+               
             </div>
             <div class="achievement-date">${achievement.date}</div>
             <div class="achievement-org">${achievement.organization}</div>

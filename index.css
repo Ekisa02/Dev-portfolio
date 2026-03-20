@@ -1774,7 +1774,7 @@ body {
 .year-filter-container {
     margin-bottom: 30px;
     padding: 20px;
-    background: white;
+    background:none;
     border-radius: 16px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
