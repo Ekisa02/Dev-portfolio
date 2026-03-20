@@ -1770,7 +1770,7 @@ body {
         font-size: 1.1rem;
     }
 }
-/* Year Filter Container - New Styles Only */
+/* Year Filter Container */
 .year-filter-container {
     margin-bottom: 30px;
     padding: 20px;
@@ -1790,9 +1790,11 @@ body {
 
 .filter-title {
     font-size: 1.1rem;
-    color: #1e3c5f;
+    color: #0371ef;
     margin: 0;
+    font-style: bold;
     font-weight: 600;
+
 }
 
 .filter-stats {
@@ -1825,7 +1827,7 @@ body {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
-    color: #1e3c5f;
+    color: #0779fb;
     font-family: 'Inter', sans-serif;
 }
 
@@ -1841,7 +1843,7 @@ body {
     box-shadow: 0 5px 15px rgba(30,60,95,0.3);
 }
 
-/* Year Badge - Small addition to your existing cards */
+/* Year Badge  */
 .year-badge {
     background: #f0f7ff;
     color: #1e3c5f;
